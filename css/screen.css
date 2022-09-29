@@ -45,6 +45,7 @@
 
     /* border stuff */
     --global-borderRadius: 3px;
+    --global-borderRadius100: 100%;
     --global-borderWidth: 1px;
 
     /* transitions */
@@ -67,6 +68,14 @@
     /*  = 48px */
     --global-whitespace-xxl: calc(var(--global-whitespace) * 3);
     /*  = 72px */
+
+    --global-input-backgroundColor: White;
+    --global-input-color: var(--global-color-neutral-xxxx-dark);
+    --global-input-borderColor: var(--global-color-neutral-xxx-light);
+    --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
+    --global-input-focus-borderColor: var(--global-color-alpha);
+    --global-input-boxShadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+
 }
 
 /*------------------------------------*\
@@ -601,10 +610,10 @@ input::placeholder {
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    border: var(--global-borderWidth) solid var(--global-color-neutral-xxx-light);
+    border: var(--global-borderWidth) solid var(--global-input-borderColor);
     border-radius: var(--global-borderRadius);
-    color: var(--global-color-neutral-xxxx-dark);
-    background-color: White;
+    color: var(--global-input-color);
+    background-color: var(--global-input-backgroundColor);
     font-family: inherit;
     font-size: 16px;
     line-height: calc(var(--global-baseline) * 3);
@@ -614,12 +623,12 @@ input::placeholder {
 }
 
 .c-input:hover {
-    border-color: var(--global-color-neutral-xx-light);
+    border-color: var(--global-input-borderColor);
 }
 
 .c-input:focus,
 .c-input:active {
-    border-color: var(--global-color-alpha);
+    border-color: var(--global-input-borderColor);
     box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
 }
 
@@ -679,6 +688,171 @@ input::placeholder {
     background-color: var(--global-color-alpha-dark);
     box-shadow: none;
 }
+
+/*
+    Component: custom options
+    ---
+    Class to put on form custom options
+*/
+
+.c-option--hidden:checked+.c-custom-option {
+    opacity: 1;
+}
+
+.c-option--hidden:checked+.c-custom-option .c-custom-option__symbol {
+    opacity: 1;
+    transform: scale(2, 2);
+}
+
+.c-custom-option{
+    display:flex;
+    --custom-option-borderColor: var(--global-input-borderColor);
+    --custom-option-focus-borderColor: var(--global-input-focus-borderColor);
+}
+
+.c-custom-option__fake-input--checkbox{
+    border-radius:var(--global-borderRadius);
+}
+
+.c-custom-option__fake-input--radio{
+    border-radius: var(--global-borderRadius100);
+}
+
+.c-custom-option__symbol{
+    opacity: 0;
+    transition: all 0.2s;
+    display:block;
+}
+
+.c-custom-option__fake-input{
+    display: flex;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--custom-option-borderColor);
+    margin-right: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-custom-option__fake-input--checkbox .c-custom-option__symbol {
+    width: 5px;
+    height: 5px;
+    fill: var(--global-color-alpha);
+    display: flex;
+}
+
+.c-custom-option__fake-input--radio .c-custom-option__symbol {
+    width: 3px;
+    height: 3px;
+    background-color: var(--global-color-alpha);
+    border-radius: 100%;
+    display: flex;
+}
+
+.c-custom-option__fake-input:hover{
+    border-color: var(--global-color-alpha-transparent);
+    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+}
+
+
+.c-option-list{
+    margin-bottom: 24px;
+}
+
+.c-option-list__item {
+    margin-bottom: 12px;
+}
+
+/*
+    Component: toggle options
+    ---
+    Class to put on form toggle options
+*/
+
+.c-custom-toggle{
+    display:flex;
+    align-items:center;
+}
+
+
+.c-custom-toggle__fake-input{
+    display: block;
+    width: 48px;
+    height: 24px;
+    border-radius: 24px;
+    background-color: #F5F6FA;
+    border: 1px solid #E2E3E7;
+    margin-right:8px;
+    transition: all 0.2s;
+}
+
+.c-custom-toggle__fake-input::after{
+    display: block;
+    content: "";
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    background-color: #FFFFFF;
+    border: 0;
+    transition: all 0.2s;
+}
+
+.c-option--hidden:checked+.c-custom-toggle .c-custom-toggle__fake-input::after {
+    transform: translateX(25px)
+}
+.c-option--hidden:checked+.c-custom-toggle .c-custom-toggle__fake-input {
+    background-color: #3385FF;
+    border-color:#2E77E6;
+}
+
+.c-custom-toggle__fake-input:hover{
+    border-color: #81ADF0;
+    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+    
+}
+
+.c-option--hidden:active+.c-custom-toggle .c-custom-toggle__fake-input::after {
+    width: 28px;
+    height: 22px;
+    border-radius: 24px;
+}
+.c-option--hidden:active:checked+.c-custom-toggle .c-custom-toggle__fake-input::after {
+    transform: translateX(18.75px);
+}
+
+.c-custom-toggle--inverted{
+    flex-direction: row-reverse;
+}
+.c-custom-toggle--inverted .c-option--hidden {
+    margin-right:0;
+    
+}
+
+.c-custom-toggle--inverted .c-custom-toggle__fake-input{
+    margin-left: 150px;
+    margin-bottom: 12px;
+}
+
+/*
+    Component: custom select
+    ---
+    Class to put on form custom select
+*/
+
+.c-custom-select{
+    display: block;
+}
+
+.c-custom-select__symbol{
+    width: 24px;
+    height: 24px;
+    fill: #B5B6C0;
+    position: relative;
+    left: 300px;
+    bottom: 35px;
+    pointer-events: none;
+}
+
 
 /*------------------------------------*\
 #UTILITIES
